@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CV Parser & Shortlister</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+            background-image: url('https://us.123rf.com/450wm/lovely1972/lovely19722308/lovely1972230811661/210436831-abstract-background-design-images-wallpaper-ai-generated.jpg?ver=6');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center 10%;
+            color: #fff;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        textarea.form-control {
+            resize: vertical;
+        }
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        .custom-file-input::before {
+            content: 'Choose File';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+        }
+        .custom-file-input:hover::before {
+            border-color: black;
+        }
+        .custom-file-input:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+        .custom-file-input::after {
+            content: 'Browse';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/info2">CV Parser & Shortlister</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home1">Back <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <script type="text/javascript">
+            alert('{{ messages[0] }}');
+        </script>
+        {% endif %}
+        {% endwith %}
+
+        <form method="post" enctype="multipart/form-data">
+            <h4>Upload Resumes</h4><br>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="file" multiple onchange="updateFileName()">
+                <label class="custom-file-label" for="customFile" id="fileLabel">Choose file</label>
+            </div>
+            <input type="submit" value="Upload" class="btn btn-primary mt-3">
+        </form>
+        <br/>
+        
+        {%- if files %}
+        <ul>
+            {%- for code, file in files.items() %}
+            <li><a href="/download/{{ code }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br/>
+        <form method="post" action="/process">
+            <div class="form-group">
+                <label>Enter Your Job Description</label>
+                <textarea rows="5" cols="5" class="form-control" name="rawtext" required="true"></textarea>
+                <br/>
+                <button type="reset" class="btn btn-secondary"><i class="fa fa-eraser"></i> Clear</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-database"></i> Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function updateFileName() {
+            var input = document.getElementById('customFile');
+            var label = document.getElementById('fileLabel');
+            var fileName = input.files[0].name;
+            label.innerHTML = fileName;
+        }
+    </script>
+</body>
+</html>

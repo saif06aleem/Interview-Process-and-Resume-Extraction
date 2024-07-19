@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload and Display JSON Files</title>
+</head>
+<body>
+    <h1>Upload JSON Files</h1>
+    <form method="post" action="/info2" enctype="multipart/form-data">
+        <input type="file" name="file" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    <h2>Uploaded Files</h2>
+    <ul>
+        {% for code, name in files.items() %}
+        <li><a href="{{ url_for('download', code=code) }}">{{ name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

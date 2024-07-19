@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flight Satisfaction page</title>
+    <!--<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url(https://datarundown.com/wp-content/uploads/2024/01/Business-People-in-meeting.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center -10%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-custom {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+            width: 250px;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .topnav a {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 17px;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .topnav a:hover {
+            color: #8BC34A; /* Light green color on hover */
+        }
+
+        .topnav a.active {
+            color: #4CAF50;
+        }
+
+        .widgets-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .widget {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 300px;
+            text-align: center;
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+        }
+
+        .widget h3 {
+            color: #333;
+        }
+
+        .widget p {
+            color: #666;
+        }
+
+        .widget a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .widget a:hover {
+            color: #2E7D32;
+        }
+
+        /* Clock Styles */
+        #clock-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #clock {
+            margin-bottom: 10px;
+        }
+
+        #date {
+            font-size: 18px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="topnav">
+    <a href="/gohome" class="active">Home</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="widgets-container">
+    <div class="widget">
+        <a href="/info">Interview Process</a>
+    </div>
+    <div class="widget">
+        <a href="/info2">Resume Extraction</a>
+    </div>
+</div>
+
+<div class="container-custom"></div>
+
+<div id="clock-container">
+    <div id="date"></div>
+    <div id="clock"></div>
+</div>
+
+<script>
+    // Function to update the clock and date
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Add leading zeros if needed
+        hours = (hours < 10 ? "0" : "") + hours;
+        minutes = (minutes < 10 ? "0" : "") + minutes;
+        seconds = (seconds < 10 ? "0" : "") + seconds;
+
+        // Display the clock
+        document.getElementById("clock").textContent = hours + ":" + minutes + ":" + seconds;
+
+        // Display the date
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var day = now.getDate();
+        var month = months[now.getMonth()];
+        var year = now.getFullYear();
+        document.getElementById("date").textContent = day + " " + month + " " + year;
+
+        // Update the clock every second
+        setTimeout(updateTime, 1000);
+    }
+
+    // Call the function to start the clock and date
+    updateTime();
+</script>
+
+</body>
+</html>
